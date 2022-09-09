@@ -10,7 +10,7 @@ void setUp(char *filename)
 
 	if (!file)
 	{
-		printf("Error: Can't open file %s\n", filename);
+		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", filename);
 		exit(EXIT_FAILURE);
 	}
 	monty.buffer = NULL;
@@ -54,7 +54,7 @@ void runInterpreter(void)
 			fn = get_fn(opcode);
 			if (!fn)
 			{
-				dprintf(2, "L%d: unknown instruction %s", monty.line, opcode);
+				dprintf(2, "L%d: unknown instruction %s\n", monty.line, opcode);
 				tearDown();
 				exit(EXIT_FAILURE);
 			}
@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 {
 	if (argc != 2)
 	{
-		printf("USAGE: monty file\n");
+		dprintf(STDERR_FILENO, "USAGE: monty file\n");
 		return (EXIT_FAILURE);
 	}
 	setUp(argv[1]);
